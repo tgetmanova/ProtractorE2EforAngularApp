@@ -1,12 +1,10 @@
-const DEFAULT_WAIT_TIME_INTERVAL = require( '.././utils/UtilData').DEFAULT_WAIT_TIME_INTERVAL;
+const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilData').DEFAULT_WAIT_TIME_INTERVAL;
 
 class DashboardPage {
 
   constructor() {
     this.searchField = element(by.id('search-box'));
-    this.searchResultForText = text => {
-      return element.all(by.cssContainingText('[class="search-result"]', text));
-    };
+    this.searchResultForText = text => element.all(by.cssContainingText('[class="search-result"]', text));
   }
 
   open() {
