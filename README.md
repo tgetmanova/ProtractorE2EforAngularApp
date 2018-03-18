@@ -1,3 +1,9 @@
+This is a fork from demo Angular application  
+The purpose of this fork is to create demo Protractor based e2e tests:  
+***pages*** directory contains page objects;  
+***specs*** directory contains test scripts.  
+
+
 # Getting Started
 
 Super simple Angular app with 1 module and 2 routes. This is a mnor variation on the Tour of Heroes I wrote for the official docs.
