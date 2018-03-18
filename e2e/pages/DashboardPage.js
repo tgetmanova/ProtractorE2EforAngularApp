@@ -1,8 +1,12 @@
+const DEFAULT_WAIT_TIME_INTERVAL = require( '.././utils/UtilData').DEFAULT_WAIT_TIME_INTERVAL;
+
 class DashboardPage {
 
   constructor() {
     this.searchField = element(by.id('search-box'));
-    this.searchResultValues = element.all(by.className('search-result'));
+    this.searchResultForText = text => {
+      return element.all(by.cssContainingText('[class="search-result"]', text));
+    };
   }
 
   open() {
@@ -14,15 +18,11 @@ class DashboardPage {
   }
 
   selectSearchResultValue(expectedSearchResult) {
-    let targetSearchResult = this.searchResultValues
-      .filter(result => result.getText() === expectedSearchResult);
-    if (targetSearchResult.length !== 1) {
-      throw new Error('No expected search results found ' +
-        'or more than one the same result returned for: ' + expectedSearchResult);
-    }
-
-    targetSearchResult.get(0).click();
+    browser.driver.wait(ExpectedConditions.presenceOf(
+      element.all(by.className('search-result'))), DEFAULT_WAIT_TIME_INTERVAL);
+    this.searchResultForText(expectedSearchResult).click();
   }
+
 }
 
 exports.DashboardPage = DashboardPage;

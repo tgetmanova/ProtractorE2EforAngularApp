@@ -1,13 +1,18 @@
+const DEFAULT_WAIT_TIME_INTERVAL = require( '.././utils/UtilData').DEFAULT_WAIT_TIME_INTERVAL;
+
 class HeroDetailsPage {
+
   constructor() {
-    this.heroDetailsHeader = element.all(by.css('h2'));
+    this.heroDetailsHeader = text => {
+      return element(by.cssContainingText('h2', text + ' details!'));
+    };
   }
 
-  isHeaderPresent(expectedHeaderText) {
-    return this.heroDetailsHeader
-      .filter(header => header.getText() === expectedHeaderText)
-      .length === 1;
+  isHeroTitleDisplayed(heroname) {
+    browser.driver.wait(ExpectedConditions.urlContains('detail'), DEFAULT_WAIT_TIME_INTERVAL);
+    expect(this.heroDetailsHeader(heroname).isDisplayed()).toEqual(true);
   }
+
 }
 
 exports.HeroDetailsPage = HeroDetailsPage;

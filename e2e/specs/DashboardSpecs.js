@@ -10,6 +10,7 @@ describe('Dashboard specs test suite', () => {
     dashboardPage.open();
     dashboardPage.typeInSearchField(expectedHero);
     dashboardPage.selectSearchResultValue(expectedHero);
-    expect(heroDetailsPage.isHeaderPresent(expectedHero)).toEqual(true);
+    heroDetailsPage.isHeroTitleDisplayed(expectedHero);
   });
+
 });
