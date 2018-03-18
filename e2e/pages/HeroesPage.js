@@ -9,6 +9,7 @@ class HeroesPage {
 
   open() {
     browser.get('/heroes');
+    return this;
   }
 
   clickAddHeroButton() {
@@ -16,14 +17,17 @@ class HeroesPage {
       browser.executeScript('arguments[0].scrollIntoView(true)', this.addHeroButton.getWebElement());
     });
     this.addHeroButton.click();
+    return this;
   }
 
   typeHeroName(name) {
     this.newHeroTextField.sendKeys(name);
+    return this;
   }
 
   clickSaveButton() {
     this.saveButton.click();
+    return this;
   }
 
   isHeroAdded(name){
