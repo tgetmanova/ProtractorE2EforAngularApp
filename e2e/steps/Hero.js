@@ -1,10 +1,21 @@
 const HeroesPage = require('./../pages/HeroesPage').HeroesPage;
+const Random = require('./../utils/Random').Random;
 
 class Hero {
 
-  constructor(name) {
-    this.heroName = name;
+  constructor() {
+    this.heroName = "";
     this.heroesPage = new HeroesPage();
+  }
+
+  withName(name) {
+    this.heroName = name;
+    return this;
+  }
+
+  withRandomName() {
+    this.heroName = Random.getRandomAlphanumeric(30);
+    return this;
   }
 
   create() {

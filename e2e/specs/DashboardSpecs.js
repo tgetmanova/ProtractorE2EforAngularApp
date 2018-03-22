@@ -3,8 +3,8 @@ const Dashboard = require('./../steps/Dashboard').Dashboard;
 
 describe('Dashboard specs test suite', () => {
 
-  fit('Can search for newly added hero on Dashboard page', () => {
-    let hero = new Hero('newTestHero').create();
+  it('Can search for newly added hero on Dashboard page', () => {
+    let hero = new Hero().withRandomName().create();
 
     let dashboard = new Dashboard()
       .openFromTopNavigation()
@@ -14,7 +14,7 @@ describe('Dashboard specs test suite', () => {
   });
 
   it('Can create new Hero', () => {
-    let hero = new Hero('newTestHero').create();
+    let hero = new Hero().withRandomName().create();
     hero.verifyHeroCreated();
   });
 
