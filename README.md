@@ -1,6 +1,6 @@
 
 **Important!!!** This is a fork from demo Angular application  
-The purpose of this fork is to create demo Protractor based e2e tests:  
+The purpose of this fork is to create demo Protractor based e2e tests:  `e2e` directory (original TS draft is kept for now)
 - ***pages*** directory contains page objects;  
 - ***steps*** directory contains level of pages' interaction abstraction;
 - ***specs*** directory contains test scripts.  
