@@ -1,21 +1,46 @@
-const Hero = require('./../steps/Hero').Hero;
-const Dashboard = require('./../steps/Dashboard').Dashboard;
+const HeroContext = require('../steps/HeroContext').HeroContext;
+const Dashboard = require('../steps/DashboardContext').DashboardContext;
 
-describe('Dashboard specs test suite', () => {
+const Hero = require('../data/Hero').Hero;
 
-  it('Can search for newly added hero on Dashboard page', () => {
-    let hero = new Hero().withRandomName().create();
+const Util = require('../utils/UtilData').UtilData;
+const LAUNCH_DEFAULT_URL = require('../utils/UtilConstants').LAUNCH_DEFAULT_URL;
 
+describe('Dashboard and heroes specs test suite', () => {
+
+  beforeAll(() => {
+    browser.driver.get(LAUNCH_DEFAULT_URL);
+  });
+
+  it('Can search for newly added Hero on Dashboard page', () => {
+    let hero = new Hero().withRandomName();
+    let heroContext = new HeroContext().withNewHero(hero);
+
+    heroContext.openHeroesList().createHeroes();
     let dashboard = new Dashboard()
       .openFromTopNavigation()
-      .searchForHero(hero.heroName);
+      .searchForHero(hero.getName());
 
-    dashboard.verifyHeroIsFound(hero.heroName);
+    dashboard.verifyHeroIsFound(hero.getName());
   });
 
   it('Can create new Hero', () => {
-    let hero = new Hero().withRandomName().create();
-    hero.verifyHeroCreated();
+    let hero = new Hero().withRandomName();
+    let heroContext = new HeroContext().withNewHero(hero);
+    heroContext.openHeroesList().createHeroes();
+
+    heroContext.verifyHeroesCreated();
+  });
+
+  it('Can see Hero detail preview on Heroes page', () => {
+    let heroContext = new HeroContext().openHeroesList();
+    let heroToPreview = heroContext
+      .withNewHeroes(Util.generateRandomNumberOfHeroes(1, 3))
+      .takeRandomHero();
+
+    heroContext.createHeroes();
+
+    heroContext.previewHeroDetails(heroToPreview);
   });
 
 });

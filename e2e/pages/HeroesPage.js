@@ -1,3 +1,5 @@
+const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilConstants').DEFAULT_WAIT_TIME_INTERVAL;
+
 class HeroesPage {
 
   constructor() {
@@ -5,6 +7,7 @@ class HeroesPage {
     this.newHeroTextField = element(by.css('input'));
     this.saveButton = element(by.buttonText('Save'));
     this.heroElement = text => element(by.cssContainingText('[class="hero-element"]', text));
+    this.heroPreviewElement = text => element(by.cssContainingText('h2', text.toUpperCase() + ' is my hero'));
   }
 
   open() {
@@ -30,8 +33,18 @@ class HeroesPage {
     return this;
   }
 
-  isHeroAdded(name){
-    browser.driver.wait(ExpectedConditions.presenceOf(this.heroElement(name)), 5000);
+  waitForHeroElementAppears(name) {
+    browser.driver.wait(ExpectedConditions.presenceOf(this.heroElement(name)), DEFAULT_WAIT_TIME_INTERVAL);
+    return this;
+  }
+
+  selectHeroElement(name) {
+    this.heroElement(name).click();
+    return this;
+  }
+
+  isHeroPreviewDisplayed(name) {
+    expect(this.heroPreviewElement(name).isDisplayed()).toBeTruthy();
   }
 
 }

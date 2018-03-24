@@ -1,10 +1,9 @@
-const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilData').DEFAULT_WAIT_TIME_INTERVAL;
+const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilConstants').DEFAULT_WAIT_TIME_INTERVAL;
 
 class HeroDetailsPage {
 
   constructor() {
     this.heroDetailsHeader = text => element(by.cssContainingText('h2', text + ' details!'));
-
   }
 
   isHeroTitleDisplayed(heroname) {

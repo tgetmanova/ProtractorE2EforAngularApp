@@ -2,7 +2,7 @@ const DashboardPage = require('./../pages/DashboardPage').DashboardPage;
 const HeroDetailsPage = require('./../pages/HeroDetailsPage').HeroDetailsPage;
 const TopNavigation = require('./../pages/TopNavigation').TopNavigation;
 
-class Dashboard {
+class DashboardContext {
 
   constructor() {
     this.dashboardPage = new DashboardPage();
@@ -27,4 +27,4 @@ class Dashboard {
 
 }
 
-exports.Dashboard = Dashboard
+exports.DashboardContext = DashboardContext

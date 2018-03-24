@@ -1,4 +1,4 @@
-const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilData').DEFAULT_WAIT_TIME_INTERVAL;
+const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilConstants').DEFAULT_WAIT_TIME_INTERVAL;
 
 class DashboardPage {
 

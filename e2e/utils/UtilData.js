@@ -1,3 +1,17 @@
-const DEFAULT_WAIT_TIME_INTERVAL = 5000;
+const Random = require('./../utils/Random').Random;
 
-exports.DEFAULT_WAIT_TIME_INTERVAL = DEFAULT_WAIT_TIME_INTERVAL;
+const Hero = require('../data/Hero').Hero;
+
+class UtilData {
+
+  static generateRandomNumberOfHeroes(min, max) {
+    let count = Random.getRandomIntInRange(min, max);
+    let heroes = [];
+    for (let i = 0; i < count; i++) {
+      heroes.push(new Hero().withRandomName());
+    }
+    return heroes;
+  }
+}
+
+exports.UtilData = UtilData;
