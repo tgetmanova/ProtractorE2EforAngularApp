@@ -11,16 +11,28 @@ exports.config = {
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
-  framework: 'jasmine',
+  framework: 'jasmine2',
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 30000,
     print: function() {}
   },
-  onPrepare() {
-    require('ts-node').register({
-      project: 'e2e/tsconfig.e2e.json'
+
+  onPrepare: function() {
+    const AllureReporter = require('jasmine-allure-reporter');
+    jasmine.getEnv().addReporter(new AllureReporter({
+      allureReport: {
+      resultsDir: 'allure-results'
+      }
+    }));
+    jasmine.getEnv().afterEach(function(done) {
+      browser.takeScreenshot().then(function(png) {
+        allure.createAttachment('Screenshot', function () {
+          return new Buffer(png, 'base64');
+        }, 'image/png')();
+        done();
+      });
     });
-    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+
   }
 };
