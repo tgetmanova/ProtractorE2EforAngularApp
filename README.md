@@ -5,6 +5,14 @@ The purpose of this fork is to create demo Protractor based e2e tests:  `e2e` di
 - ***steps*** directory contains level of pages' interaction abstraction;
 - ***specs*** directory contains test scripts.  
 
+# Run e2e tests
+
+## Generate HTML Allure Report
+Test results XML files with screenshots are saved into result directory set in `protractor.conf.js` file.  
+To generate HTML:
+- In the project root, there is `pom.xml` file. According to Allure docs, this is "ready-to-use" configuration for generating reports via Maven;  
+- `mvn site -Dallure.results_pattern=allure-results` will generate reports into `target -> site -> allure-maven-plugin`  
+
 
 # Getting Started
 
