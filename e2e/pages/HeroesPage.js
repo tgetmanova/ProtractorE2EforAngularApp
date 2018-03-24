@@ -1,8 +1,11 @@
 const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilConstants').DEFAULT_WAIT_TIME_INTERVAL;
 
-class HeroesPage {
+const BasePage = require('.././pages/BasePage').BasePage;
+
+class HeroesPage extends BasePage {
 
   constructor() {
+    super();
     this.addHeroButton = element(by.buttonText('Add New Hero'));
     this.newHeroTextField = element(by.css('input'));
     this.saveButton = element(by.buttonText('Save'));
@@ -24,7 +27,7 @@ class HeroesPage {
   }
 
   typeHeroName(name) {
-    this.newHeroTextField.sendKeys(name);
+    this.enterTextIntoTextField(this.newHeroTextField, name, 'Text Field for new Hero name');
     return this;
   }
 

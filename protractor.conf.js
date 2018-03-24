@@ -25,6 +25,9 @@ exports.config = {
       resultsDir: 'allure-results'
       }
     }));
+
+    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+
     jasmine.getEnv().afterEach(function(done) {
       browser.takeScreenshot().then(function(png) {
         allure.createAttachment('Screenshot', function () {
