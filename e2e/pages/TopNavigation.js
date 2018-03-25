@@ -1,16 +1,19 @@
-class TopNavigation {
+const BasePage = require('.././pages/BasePage').BasePage;
+
+class TopNavigation extends BasePage {
 
   constructor() {
+    super();
     this.dashboardLink = element(by.css('[ng-reflect-router-link="/dashboard"]'));
-    this.heroesLnk = element(by.css('[ng-reflect-router-link="/heroes"]'));
+    this.heroesLink = element(by.css('[ng-reflect-router-link="/heroes"]'));
   }
 
   clickDashboardLink() {
-    this.dashboardLink.click();
+    super.clickTheElement(this.dashboardLink, 'Dashboard tile link');
   }
 
   clickHeroesLink() {
-    this.heroesLnk.click();
+    super.clickTheElement(this.heroesLink, 'Heroes tile link');
   }
 }
 

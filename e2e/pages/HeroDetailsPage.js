@@ -1,14 +1,15 @@
-const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilConstants').DEFAULT_WAIT_TIME_INTERVAL;
+const BasePage = require('.././pages/BasePage').BasePage;
 
-class HeroDetailsPage {
+class HeroDetailsPage extends BasePage {
 
   constructor() {
+    super();
     this.heroDetailsHeader = text => element(by.cssContainingText('h2', text + ' details!'));
   }
 
   isHeroTitleDisplayed(heroname) {
-    browser.driver.wait(ExpectedConditions.urlContains('detail'), DEFAULT_WAIT_TIME_INTERVAL);
-    expect(this.heroDetailsHeader(heroname).isDisplayed()).toEqual(true);
+    super.waitForCondition(ExpectedConditions.urlContains('detail'), 'URL indicates we are on Hero Details page');
+    super.verifyElementIsDisplayed(this.heroDetailsHeader(heroname), 'Hero Details page header');
   }
 
 }

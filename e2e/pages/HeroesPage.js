@@ -1,5 +1,3 @@
-const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilConstants').DEFAULT_WAIT_TIME_INTERVAL;
-
 const BasePage = require('.././pages/BasePage').BasePage;
 
 class HeroesPage extends BasePage {
@@ -19,10 +17,8 @@ class HeroesPage extends BasePage {
   }
 
   clickAddHeroButton() {
-    browser.controlFlow().execute(() => {
-      browser.executeScript('arguments[0].scrollIntoView(true)', this.addHeroButton.getWebElement());
-    });
-    this.addHeroButton.click();
+    super.scrollToElement(this.addHeroButton, 'Add New Hero button');
+    super.clickTheElement(this.addHeroButton, 'Add New Hero button');
     return this;
   }
 
@@ -32,22 +28,23 @@ class HeroesPage extends BasePage {
   }
 
   clickSaveButton() {
-    this.saveButton.click();
+    super.clickTheElement(this.saveButton, 'Save new Hero button');
     return this;
   }
 
   waitForHeroElementAppears(name) {
-    browser.driver.wait(ExpectedConditions.presenceOf(this.heroElement(name)), DEFAULT_WAIT_TIME_INTERVAL);
+    super.waitForCondition(ExpectedConditions.presenceOf(this.heroElement(name)),
+      'Hero tile appears in the Heroes list');
     return this;
   }
 
   selectHeroElement(name) {
-    this.heroElement(name).click();
+    super.clickTheElement(this.heroElement(name), 'Hero tile element');
     return this;
   }
 
   isHeroPreviewDisplayed(name) {
-    expect(this.heroPreviewElement(name).isDisplayed()).toBeTruthy();
+    super.verifyElementIsDisplayed(this.heroPreviewElement(name), 'Hero preview text label element');
   }
 
 }

@@ -1,8 +1,9 @@
-const DEFAULT_WAIT_TIME_INTERVAL = require('.././utils/UtilConstants').DEFAULT_WAIT_TIME_INTERVAL;
+const BasePage = require('.././pages/BasePage').BasePage;
 
-class DashboardPage {
+class DashboardPage extends BasePage {
 
   constructor() {
+    super();
     this.searchField = element(by.id('search-box'));
     this.searchResultForText = text => element.all(by.cssContainingText('[class="search-result"]', text));
   }
@@ -12,13 +13,14 @@ class DashboardPage {
   }
 
   typeInSearchField(searchRequest) {
-    this.searchField.sendKeys(searchRequest);
+    super.enterTextIntoTextField(this.searchField, searchRequest, 'Search for Hero text field');
   }
 
   selectSearchResultValue(expectedSearchResult) {
-    browser.driver.wait(ExpectedConditions.presenceOf(
-      element.all(by.className('search-result'))), DEFAULT_WAIT_TIME_INTERVAL);
-    this.searchResultForText(expectedSearchResult).click();
+    super.waitForCondition(ExpectedConditions.presenceOf(element.all(by.className('search-result'))),
+      'Some search results are derived');
+    super.clickTheElement(this.searchResultForText(expectedSearchResult),
+      'Search result that appears under search field');
   }
 
 }
