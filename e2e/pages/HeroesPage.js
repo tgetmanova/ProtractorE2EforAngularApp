@@ -9,6 +9,7 @@ class HeroesPage extends BasePage {
     this.saveButton = element(by.buttonText('Save'));
     this.heroElement = text => element(by.cssContainingText('[class="hero-element"]', text));
     this.heroPreviewElement = text => element(by.cssContainingText('h2', text.toUpperCase() + ' is my hero'));
+    this.viewDetailsButton = element(by.buttonText('View Details'));
   }
 
   open() {
@@ -45,6 +46,10 @@ class HeroesPage extends BasePage {
 
   isHeroPreviewDisplayed(name) {
     super.verifyElementIsDisplayed(this.heroPreviewElement(name), 'Hero preview text label element');
+  }
+
+  clickViewDetailsButton() {
+    super.clickTheElement(this.viewDetailsButton, 'View Hero Details button');
   }
 
 }

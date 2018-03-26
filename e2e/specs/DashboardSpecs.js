@@ -8,7 +8,7 @@ const LAUNCH_DEFAULT_URL = require('../utils/UtilConstants').LAUNCH_DEFAULT_URL;
 
 describe('Dashboard and heroes specs test suite', () => {
 
-  beforeAll(() => {
+  beforeEach(() => {
     browser.driver.get(LAUNCH_DEFAULT_URL);
   });
 
@@ -41,6 +41,13 @@ describe('Dashboard and heroes specs test suite', () => {
     heroContext.createHeroes();
 
     heroContext.previewHeroDetails(heroToPreview);
+  });
+
+  it('Displayed Hero identifier is correct', () => {
+    let hero = new Hero().withRandomName();
+    let heroContext = new HeroContext().withNewHero(hero);
+    heroContext.openHeroesList().createHeroes();
+    heroContext.viewHeroDetails(hero).verifyCorrectHeroDetailsAreDisplayed(hero );
   });
 
 });

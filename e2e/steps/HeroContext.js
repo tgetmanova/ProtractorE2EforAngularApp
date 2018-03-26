@@ -1,4 +1,5 @@
 const HeroesPage = require('./../pages/HeroesPage').HeroesPage;
+const HeroDetailsPage = require('./../pages/HeroDetailsPage').HeroDetailsPage;
 const TopNavigation = require('./../pages/TopNavigation').TopNavigation;
 
 const Random = require('./../utils/Random').Random;
@@ -9,6 +10,7 @@ class HeroContext {
     this.heroesList = [];
     this.heroesPage = new HeroesPage();
     this.topNavigation = new TopNavigation();
+    this.heroDetailsPage = new HeroDetailsPage();
   }
 
   withNewHero(hero) {
@@ -38,8 +40,8 @@ class HeroContext {
     this.getHeroes().forEach(hero => this.heroesPage
       .clickAddHeroButton()
       .typeHeroName(hero.getName())
-      .clickSaveButton());
-
+      .clickSaveButton()
+      .waitForHeroElementAppears(hero.getName()));
     return this;
   }
 
@@ -48,10 +50,18 @@ class HeroContext {
   }
 
   previewHeroDetails(hero) {
-    let heroName = hero.getName();
-    this.heroesPage.waitForHeroElementAppears(heroName)
-      .selectHeroElement(heroName)
-      .isHeroPreviewDisplayed(heroName);
+    this.heroesPage.selectHeroElement(hero.getName())
+      .isHeroPreviewDisplayed(hero.getName());
+  }
+
+  viewHeroDetails(hero) {
+    this.heroesPage.selectHeroElement(hero.getName())
+      .clickViewDetailsButton();
+    return this;
+  }
+
+  verifyCorrectHeroDetailsAreDisplayed() {
+    this.heroDetailsPage.isHeroDetailIdentifierAsExpected();
   }
 
 }
