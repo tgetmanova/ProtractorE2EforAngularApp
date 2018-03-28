@@ -64,6 +64,23 @@ class HeroContext {
     this.heroDetailsPage.isHeroDetailIdentifierAsExpected();
   }
 
+  getTheListOfExistingHeroesNames() {
+    return this.heroesPage.getHeroTilesTexts();
+  }
+
+  deleteHeroAndVerifyItIsDeleted() {
+    this.getTheListOfExistingHeroesNames()
+      .then(names => {
+        let heroNameToDelete = names[0];//TODO Random.getRandomElement(names);
+        this.heroesPage.clickDeleteHeroButton(heroNameToDelete);
+        return heroNameToDelete;
+      })
+      .then(deletedHeroName => {
+        let updatedHeroesList = this.getTheListOfExistingHeroesNames();
+        expect(updatedHeroesList).not.toContain(deletedHeroName);
+      });
+  }
+
 }
 
 exports.HeroContext = HeroContext;

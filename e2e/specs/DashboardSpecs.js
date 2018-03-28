@@ -47,7 +47,12 @@ describe('Dashboard and heroes specs test suite', () => {
     let hero = new Hero().withRandomName();
     let heroContext = new HeroContext().withNewHero(hero);
     heroContext.openHeroesList().createHeroes();
-    heroContext.viewHeroDetails(hero).verifyCorrectHeroDetailsAreDisplayed(hero );
+    heroContext.viewHeroDetails(hero).verifyCorrectHeroDetailsAreDisplayed(hero);
+  });
+
+  fit('Can delete Hero from the list', () => {
+    let heroContext = new HeroContext().openHeroesList();
+    heroContext.deleteHeroAndVerifyItIsDeleted();
   });
 
 });

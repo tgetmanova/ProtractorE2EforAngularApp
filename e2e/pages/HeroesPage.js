@@ -8,6 +8,8 @@ class HeroesPage extends BasePage {
     this.newHeroTextField = element(by.css('input'));
     this.saveButton = element(by.buttonText('Save'));
     this.heroElement = text => element(by.cssContainingText('[class="hero-element"]', text));
+    this.heroElementDeleteButton = element(by.buttonText('Delete'));
+    this.heroTilesElements = element.all(by.css('[class="hero-element"]'));
     this.heroPreviewElement = text => element(by.cssContainingText('h2', text.toUpperCase() + ' is my hero'));
     this.viewDetailsButton = element(by.buttonText('View Details'));
   }
@@ -50,6 +52,16 @@ class HeroesPage extends BasePage {
 
   clickViewDetailsButton() {
     super.clickTheElement(this.viewDetailsButton, 'View Hero Details button');
+  }
+
+  getHeroTilesTexts() {
+    return this.heroTilesElements.map(i => i.getText());
+  }
+
+  clickDeleteHeroButton(name) {
+    // TODO
+    super.clickTheElement(this.heroElementDeleteButton);
+    return this;
   }
 
 }
