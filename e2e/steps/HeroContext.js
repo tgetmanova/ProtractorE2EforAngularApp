@@ -71,7 +71,7 @@ class HeroContext {
   deleteHeroAndVerifyItIsDeleted() {
     this.getTheListOfExistingHeroesNames()
       .then(names => {
-        let heroNameToDelete = names[0];//TODO Random.getRandomElement(names);
+        let heroNameToDelete = Random.getRandomElement(names);
         this.heroesPage.clickDeleteHeroButton(heroNameToDelete);
         return heroNameToDelete;
       })

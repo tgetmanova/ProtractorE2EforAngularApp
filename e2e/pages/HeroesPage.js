@@ -9,9 +9,12 @@ class HeroesPage extends BasePage {
     this.saveButton = element(by.buttonText('Save'));
     this.heroElement = text => element(by.cssContainingText('[class="hero-element"]', text));
     this.heroElementDeleteButton = element(by.buttonText('Delete'));
-    this.heroTilesElements = element.all(by.css('[class="hero-element"]'));
+    this.heroSpanElements = element.all(by.css('[class="hero-element"]'));
     this.heroPreviewElement = text => element(by.cssContainingText('h2', text.toUpperCase() + ' is my hero'));
     this.viewDetailsButton = element(by.buttonText('View Details'));
+
+    // CSS templates based elements
+    this.heroTileElement = index => element(by.css(`body > my-root > my-heroes > ul > li:nth-child(${index})`));
   }
 
   open() {
@@ -55,12 +58,33 @@ class HeroesPage extends BasePage {
   }
 
   getHeroTilesTexts() {
-    return this.heroTilesElements.map(i => i.getText());
+    return this.heroSpanElements.map(i => i.getText());
+  }
+
+  getHeroSpanElementsCount() {
+    return this.heroSpanElements.count();
   }
 
   clickDeleteHeroButton(name) {
-    // TODO
-    super.clickTheElement(this.heroElementDeleteButton);
+    let indexToDeleteAt;
+    this.getHeroSpanElementsCount()
+      .then(count => {
+        for (let i = 1; i <= count; i++) {
+          this.heroTileElement(i).element(by.css('span')).getText()
+            .then(text => {
+              if (text === name) {
+                indexToDeleteAt = i;
+              }
+            });
+        }
+      })
+      .then(() => {
+        if (indexToDeleteAt === undefined) {
+          throw Error(`Failed to find hero with name: ${name}`);
+        }
+        super.clickTheElement(this.heroTileElement(indexToDeleteAt).element(by.css('button')),
+          `Delete button for Hero: ${name}`);
+      });
     return this;
   }
 
