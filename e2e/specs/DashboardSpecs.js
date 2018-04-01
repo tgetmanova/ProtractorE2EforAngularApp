@@ -20,9 +20,41 @@ describe('Dashboard and heroes specs test suite', () => {
     heroContext.openHeroesList().createHeroes();
     new Dashboard()
       .openFromTopNavigation()
-      .searchForHero(hero.getName());
+      .searchForHero(hero.getName())
+      .selectSearchResult(hero.getName());
 
     heroContext.verifyCorrectHeroDetailsAreDisplayed(hero);
+  });
+
+  it('Can view several search results for newly added Heroes on Dashboard page', () => {
+    let hero = new Hero().withRandomName();
+    let anotherHero = new Hero().withPartialName(hero.getName(), hero.getName().length/2);
+    let heroContext = new HeroContext().withNewHeroes([hero, anotherHero]);
+
+    heroContext.openHeroesList().createHeroes();
+    new Dashboard()
+      .openFromTopNavigation()
+      .searchForHero(hero.getName().substring(0, hero.getName().length/2))
+      .verifyCurrentSearchResults([hero, anotherHero], []);
+  });
+
+  it('Deleted Hero cannot be found via Search on Dashboard page', () => {
+    let hero = new Hero().withRandomName();
+    let anotherHero = new Hero().withPartialName(hero.getName(), hero.getName().length/2);
+    let heroContext = new HeroContext().withNewHeroes([hero, anotherHero]);
+
+    let searchString = hero.getName().substring(0, hero.getName().length/2);
+
+    heroContext.openHeroesList().createHeroes();
+    let dashboard = new Dashboard()
+      .openFromTopNavigation()
+      .searchForHero(searchString)
+      .verifyCurrentSearchResults([hero, anotherHero], []);
+
+    heroContext.openHeroesList().deleteHero(hero.getName());
+    dashboard.openFromTopNavigation()
+      .searchForHero(searchString)
+      .verifyCurrentSearchResults([anotherHero], [hero])
   });
 
   it('Can create new Hero', () => {

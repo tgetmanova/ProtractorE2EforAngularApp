@@ -5,6 +5,7 @@ class DashboardPage extends BasePage {
   constructor() {
     super();
     this.searchField = element(by.id('search-box'));
+    this.searchResults = element.all(by.css('[class="search-result"]'));
     this.searchResultForText = text => element.all(by.cssContainingText('[class="search-result"]', text));
     this.topHeroTiles = element.all(by.css('[class="module hero"]'));
     this.topHeroTile = text => element(by.cssContainingText('[class="module hero"]', text));
@@ -16,6 +17,12 @@ class DashboardPage extends BasePage {
 
   typeInSearchField(searchRequest) {
     super.enterTextIntoTextField(this.searchField, searchRequest, 'Search for Hero text field');
+  }
+
+  getSearchResultsTexts() {
+    super.waitForCondition(ExpectedConditions.presenceOf(element.all(by.className('search-result'))),
+      'Some search results are derived');
+    return this.searchResults.map(result => result.getText());
   }
 
   selectSearchResultValue(expectedSearchResult) {
