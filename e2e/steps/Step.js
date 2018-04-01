@@ -1,6 +1,8 @@
 const DashboardContext = require('./DashboardContext').DashboardContext;
 const HeroContext = require('./HeroContext').HeroContext;
 
+const Hero = require('../data/Hero').Hero;
+
 const Random = require('../utils/Random').Random;
 const Reporting = require('../utils/ReportUtils').ReportUtils;
 
@@ -16,8 +18,8 @@ class Step {
     this.heroNameContext = this.dashboardContext.getTopHeroesNames()
       .then(names => {
         let randomHeroName = Random.getRandomElement(names);
+        Reporting.attachText('Top Heroes List', names.join(', '));
         Reporting.addStep(`Selecting random Top Hero: [${randomHeroName}] from Top Hero list: [${names}]`);
-        Reporting.attachText('Initial Top Heroes List', names.join(', '));
         return randomHeroName;
       });
   }
@@ -42,6 +44,20 @@ class Step {
             });
             Reporting.attachText('Final Top Heroes List', names.join(', '));
           });
+      });
+  }
+
+  openTopHeroDetails(){
+    this.heroNameContext
+      .then(name => {
+        this.dashboardContext.openTopHeroDetails(name);
+      });
+  }
+
+  verifyHeroDetails() {
+    this.heroNameContext
+      .then(name => {
+        this.heroContext.verifyCorrectHeroDetailsAreDisplayed(new Hero().withName(name));
       });
   }
 }

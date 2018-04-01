@@ -18,11 +18,11 @@ describe('Dashboard and heroes specs test suite', () => {
     let heroContext = new HeroContext().withNewHero(hero);
 
     heroContext.openHeroesList().createHeroes();
-    let dashboard = new Dashboard()
+    new Dashboard()
       .openFromTopNavigation()
       .searchForHero(hero.getName());
 
-    dashboard.verifyHeroIsFound(hero.getName());
+    heroContext.verifyCorrectHeroDetailsAreDisplayed(hero);
   });
 
   it('Can create new Hero', () => {
@@ -61,6 +61,13 @@ describe('Dashboard and heroes specs test suite', () => {
     heroDeletionContext.selectRandomTopHeroFromDashboard();
     heroDeletionContext.deleteHero();
     heroDeletionContext.verifyHeroIsNotInTheTopList();
+  });
+
+  it('Can open Hero Details from Top Heroes on Dashboard', () => {
+    let topHeroContext = new Step();
+    topHeroContext.selectRandomTopHeroFromDashboard();
+    topHeroContext.openTopHeroDetails();
+    topHeroContext.verifyHeroDetails();
   });
 
 });

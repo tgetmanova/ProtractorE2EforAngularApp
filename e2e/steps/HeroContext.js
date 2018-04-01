@@ -60,7 +60,8 @@ class HeroContext {
     return this;
   }
 
-  verifyCorrectHeroDetailsAreDisplayed() {
+  verifyCorrectHeroDetailsAreDisplayed(hero) {
+    this.heroDetailsPage.isHeroTitleDisplayed(hero.getName());
     this.heroDetailsPage.isHeroDetailIdentifierAsExpected();
   }
 

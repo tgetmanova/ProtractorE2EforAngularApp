@@ -10,9 +10,9 @@ class HeroDetailsPage extends BasePage {
     this.heroIdentifier = element(by.xpath('//div[label[text() ="id: "]]'));
   }
 
-  isHeroTitleDisplayed(heroname) {
+  isHeroTitleDisplayed(heroName) {
     super.waitForCondition(ExpectedConditions.urlContains('detail'), 'URL indicates we are on Hero Details page');
-    super.verifyElementIsDisplayed(this.heroDetailsHeader(heroname), 'Hero Details page header');
+    super.verifyElementIsDisplayed(this.heroDetailsHeader(heroName), 'Hero Details page header');
   }
 
   isHeroDetailIdentifierAsExpected() {
@@ -20,7 +20,6 @@ class HeroDetailsPage extends BasePage {
       let expectedId = url.substring(url.indexOf(detailSubUrl) + detailSubUrl.length, url.length);
       expect(this.heroIdentifier.getText()).toContain('id: ' + expectedId);
     });
-
   }
 
 }

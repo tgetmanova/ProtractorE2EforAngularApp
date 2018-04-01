@@ -21,12 +21,12 @@ class DashboardContext {
     return this;
   }
 
-  verifyHeroIsFound(heroName) {
-    this.heroDetailsPage.isHeroTitleDisplayed(heroName);
-  }
-
   getTopHeroesNames() {
     return this.dashboardPage.getTopHeroTilesTexts();
+  }
+
+  openTopHeroDetails(heroName) {
+    this.dashboardPage.clickTopHeroTileByText(heroName);
   }
 
 }

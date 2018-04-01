@@ -7,6 +7,7 @@ class DashboardPage extends BasePage {
     this.searchField = element(by.id('search-box'));
     this.searchResultForText = text => element.all(by.cssContainingText('[class="search-result"]', text));
     this.topHeroTiles = element.all(by.css('[class="module hero"]'));
+    this.topHeroTile = text => element(by.cssContainingText('[class="module hero"]', text));
   }
 
   open() {
@@ -26,6 +27,10 @@ class DashboardPage extends BasePage {
 
   getTopHeroTilesTexts() {
     return this.topHeroTiles.map(tile => tile.getText());
+  }
+
+  clickTopHeroTileByText(text) {
+    super.clickTheElement(this.topHeroTile(text), `Top Hero Tile for ${text}`);
   }
 
 }
