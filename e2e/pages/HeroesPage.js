@@ -103,6 +103,7 @@ class HeroesPage extends BasePage {
         if (indexToDeleteAt === undefined) {
           throw Error(`Failed to find hero with name: ${name}`);
         }
+        super.scrollToElement(this.heroTileElementDeleteButton(indexToDeleteAt), `Delete button for Hero: ${name}`);
         super.clickTheElement(this.heroTileElementDeleteButton(indexToDeleteAt), `Delete button for Hero: ${name}`);
       });
     return this;

@@ -1,6 +1,6 @@
-const HeroContext = require('../steps/HeroContext').HeroContext;
-const Dashboard = require('../steps/DashboardContext').DashboardContext;
-const Step = require('../steps/Step').Step;
+const HeroContext = require('../context/HeroContext').HeroContext;
+const Dashboard = require('../context/DashboardContext').DashboardContext;
+const GeneralContext = require('../context/GeneralContext').GeneralContext;
 
 const Hero = require('../data/Hero').Hero;
 
@@ -57,14 +57,14 @@ describe('Dashboard functionality test suite', () => {
   });
 
   it('Deleted Hero should disappear from Top Heroes on Dashboard', () => {
-    let heroDeletionContext = new Step();
+    let heroDeletionContext = new GeneralContext();
     heroDeletionContext.selectRandomTopHeroFromDashboard();
     heroDeletionContext.deleteHero();
     heroDeletionContext.verifyHeroIsNotInTheTopList();
   });
 
   it('Can open Hero Details from Top Heroes on Dashboard', () => {
-    let topHeroContext = new Step();
+    let topHeroContext = new GeneralContext();
     topHeroContext.selectRandomTopHeroFromDashboard();
     topHeroContext.openTopHeroDetails();
     topHeroContext.verifyHeroDetails();

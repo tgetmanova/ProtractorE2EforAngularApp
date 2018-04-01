@@ -6,7 +6,7 @@ const Hero = require('../data/Hero').Hero;
 const Random = require('../utils/Random').Random;
 const Reporting = require('../utils/ReportUtils').ReportUtils;
 
-class Step {
+class GeneralContext {
 
   constructor() {
     this.heroContext = new HeroContext();
@@ -62,4 +62,4 @@ class Step {
   }
 }
 
-exports.Step = Step;
+exports.GeneralContext = GeneralContext;

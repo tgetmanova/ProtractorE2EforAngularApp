@@ -1,4 +1,4 @@
-const HeroContext = require('../steps/HeroContext').HeroContext;
+const HeroContext = require('../context/HeroContext').HeroContext;
 
 const Hero = require('../data/Hero').Hero;
 
