@@ -15,11 +15,10 @@ class HeroDetailsPage extends BasePage {
     super.verifyElementIsDisplayed(this.heroDetailsHeader(heroName), 'Hero Details page header');
   }
 
-  isHeroDetailIdentifierAsExpected() {
-    browser.driver.getCurrentUrl().then(url => {
-      let expectedId = url.substring(url.indexOf(detailSubUrl) + detailSubUrl.length, url.length);
-      expect(this.heroIdentifier.getText()).toContain('id: ' + expectedId);
-    });
+  async isHeroDetailIdentifierAsExpected() {
+    let url = await browser.driver.getCurrentUrl();
+    let expectedId = url.substring(url.indexOf(detailSubUrl) + detailSubUrl.length, url.length);
+    expect(this.heroIdentifier.getText()).toContain('id: ' + expectedId);
   }
 
 }
