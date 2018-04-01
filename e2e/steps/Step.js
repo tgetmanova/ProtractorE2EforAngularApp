@@ -1,6 +1,8 @@
 const DashboardContext = require('./DashboardContext').DashboardContext;
 const HeroContext = require('./HeroContext').HeroContext;
+
 const Random = require('../utils/Random').Random;
+const Reporting = require('../utils/ReportUtils').ReportUtils;
 
 class Step {
 
@@ -13,12 +15,15 @@ class Step {
     this.dashboardContext.openFromTopNavigation();
     this.heroNameContext = this.dashboardContext.getTopHeroesNames()
       .then(names => {
-        return Random.getRandomElement(names);
+        let randomHeroName = Random.getRandomElement(names);
+        Reporting.addStep(`Selecting random Top Hero: [${randomHeroName}] from Top Hero list: [${names}]`);
+        Reporting.attachText('Initial Top Heroes List', names.join(', '));
+        return randomHeroName;
       });
   }
 
   deleteHero() {
-    this.heroContext.openHeroesList()
+    this.heroContext.openHeroesList();
     this.heroNameContext
       .then(heroName => {
         this.heroContext.deleteHero(heroName);
@@ -32,7 +37,10 @@ class Step {
         this.dashboardContext.openFromTopNavigation();
         this.dashboardContext.getTopHeroesNames()
           .then(names => {
-            expect(names).not.toContain(name);
+            Reporting.addStep(`Verifying [${name}] is not displayed within Top Heroes list: [${names}]`, () => {
+              expect(names).not.toContain(name);
+            });
+            Reporting.attachText('Final Top Heroes List', names.join(', '));
           });
       });
   }
