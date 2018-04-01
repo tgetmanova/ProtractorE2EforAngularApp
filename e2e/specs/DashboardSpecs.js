@@ -1,5 +1,6 @@
 const HeroContext = require('../steps/HeroContext').HeroContext;
 const Dashboard = require('../steps/DashboardContext').DashboardContext;
+const Step = require('../steps/Step').Step;
 
 const Hero = require('../data/Hero').Hero;
 
@@ -50,9 +51,16 @@ describe('Dashboard and heroes specs test suite', () => {
     heroContext.viewHeroDetails(hero).verifyCorrectHeroDetailsAreDisplayed(hero);
   });
 
-  fit('Can delete Hero from the list', () => {
+  it('Can delete Hero from the list', () => {
     let heroContext = new HeroContext().openHeroesList();
-    heroContext.deleteHeroAndVerifyItIsDeleted();
+    heroContext.deleteRandomHeroAndVerifyItIsDeleted();
+  });
+
+  it('Deleted Hero should disappear from Top Heroes on Dashboard', () => {
+    let heroDeletionContext = new Step();
+    heroDeletionContext.selectRandomTopHeroFromDashboard();
+    heroDeletionContext.deleteHero();
+    heroDeletionContext.verifyHeroIsNotInTheTopList();
   });
 
 });

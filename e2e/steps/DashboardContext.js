@@ -25,6 +25,10 @@ class DashboardContext {
     this.heroDetailsPage.isHeroTitleDisplayed(heroName);
   }
 
+  getTopHeroesNames() {
+    return this.dashboardPage.getTopHeroTilesTexts();
+  }
+
 }
 
-exports.DashboardContext = DashboardContext
+exports.DashboardContext = DashboardContext;

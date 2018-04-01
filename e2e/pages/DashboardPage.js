@@ -6,6 +6,7 @@ class DashboardPage extends BasePage {
     super();
     this.searchField = element(by.id('search-box'));
     this.searchResultForText = text => element.all(by.cssContainingText('[class="search-result"]', text));
+    this.topHeroTiles = element.all(by.css('[class="module hero"]'));
   }
 
   open() {
@@ -21,6 +22,10 @@ class DashboardPage extends BasePage {
       'Some search results are derived');
     super.clickTheElement(this.searchResultForText(expectedSearchResult),
       'Search result that appears under search field');
+  }
+
+  getTopHeroTilesTexts() {
+    return this.topHeroTiles.map(tile => tile.getText());
   }
 
 }

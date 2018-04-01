@@ -65,10 +65,14 @@ class HeroContext {
   }
 
   getTheListOfExistingHeroesNames() {
-    return this.heroesPage.getHeroTilesTexts();
+    return this.heroesPage.getHeroTilesTextsExcludingIdentifiers();
   }
 
-  deleteHeroAndVerifyItIsDeleted() {
+  deleteHero(heroName) {
+    this.heroesPage.clickDeleteHeroButton(heroName);
+  }
+
+  deleteRandomHeroAndVerifyItIsDeleted() {
     this.getTheListOfExistingHeroesNames()
       .then(names => {
         let heroNameToDelete = Random.getRandomElement(names);
