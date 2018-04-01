@@ -1,4 +1,5 @@
 const BasePage = require('.././pages/BasePage').BasePage;
+const Reporting = require('./../utils/ReportUtils').ReportUtils;
 
 const detailSubUrl = 'detail/';
 
@@ -18,7 +19,8 @@ class HeroDetailsPage extends BasePage {
   async isHeroDetailIdentifierAsExpected() {
     let url = await browser.driver.getCurrentUrl();
     let expectedId = url.substring(url.indexOf(detailSubUrl) + detailSubUrl.length, url.length);
-    expect(this.heroIdentifier.getText()).toContain('id: ' + expectedId);
+    Reporting.addStep(`Checking that displayed Hero contains expected ID: [${expectedId}]`, () =>
+      expect(this.heroIdentifier.getText()).toContain('id: ' + expectedId));
   }
 
 }
