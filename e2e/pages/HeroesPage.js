@@ -61,15 +61,22 @@ class HeroesPage extends BasePage {
   }
 
   getHeroTilesTextsExcludingIdentifiers() {
-    return this.heroSpanElements.map(heroSpan => {
-      return this.heroIdentifierSpanElement(heroSpan).getText()
-        .then(idText => {
-          return heroSpan.getText()
-            .then(fullText => {
-              return fullText.replace(`${idText} `, '');
-            });
-        });
+    return this.heroSpanElements.map(async span => {
+      let id = await this.heroIdentifierSpanElement(span).getText();
+      let text = await span.getText();
+      return text.replace(`${id} `, '');
     });
+
+    // This was explicit promise solution:
+    // return this.heroSpanElements.map(heroSpan => {
+    //   return this.heroIdentifierSpanElement(heroSpan).getText()
+    //     .then(idText => {
+    //       return heroSpan.getText()
+    //         .then(fullText => {
+    //           return fullText.replace(`${idText} `, '');
+    //         });
+    //     });
+    // });
   }
 
   getHeroSpanElementsCount() {
