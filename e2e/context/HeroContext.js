@@ -60,6 +60,26 @@ class HeroContext {
     return this;
   }
 
+  editHeroName(heroName) {
+    this.heroDetailsPage.typeIntoHeroNameTextField(heroName)
+      .clickSaveButton();
+    return this;
+  }
+
+  verifyHeroNameIsCorrectThroughoutThePage(heroName) {
+    this.heroesPage.waitForPageFullyLoaded();
+
+    let allHeroesNamesContext = this.heroesPage.getHeroTilesTextsExcludingIdentifiers();
+    let isHeroDisplayedInTableContext = this.heroesPage.clickShowHeroTableButton()
+      .isHeroTableDataElementDisplayed(heroName);
+
+    Promise.all([allHeroesNamesContext, isHeroDisplayedInTableContext])
+      .then(results => {
+        expect(results[0]).toContain(heroName);
+        expect(results[1]).toBeTruthy();
+      });
+  }
+
   verifyCorrectHeroDetailsAreDisplayed(hero) {
     this.heroDetailsPage.isHeroTitleDisplayed(hero.getName());
     this.heroDetailsPage.isHeroDetailIdentifierAsExpected();

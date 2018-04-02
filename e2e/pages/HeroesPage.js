@@ -12,6 +12,8 @@ class HeroesPage extends BasePage {
     this.heroIdentifierSpanElement = heroSpanElement => heroSpanElement.element(by.css('span'));
     this.heroPreviewElement = text => element(by.cssContainingText('h2', text.toUpperCase() + ' is my hero'));
     this.viewDetailsButton = element(by.buttonText('View Details'));
+    this.showHeroTableButton = element(by.buttonText('Show ngFor Features'));
+    this.heroTableData = text => element(by.cssContainingText('tr > td', text));
 
     // CSS templates based elements
     this.heroTileElement = index => element(by.css(`body > my-root > my-heroes > ul > li:nth-child(${index})`));
@@ -23,6 +25,11 @@ class HeroesPage extends BasePage {
   open() {
     browser.get('/heroes');
     return this;
+  }
+
+  waitForPageFullyLoaded() {
+    super.waitForCondition(ExpectedConditions.urlContains('heroes'), 'URL indicates we are on Heroes page');
+    super.waitForCondition(ExpectedConditions.presenceOf(this.heroSpanElements), 'Hero Tiles are loaded');
   }
 
   clickAddHeroButton() {
@@ -54,6 +61,15 @@ class HeroesPage extends BasePage {
 
   isHeroPreviewDisplayed(name) {
     super.verifyElementIsDisplayed(this.heroPreviewElement(name), 'Hero preview text label element');
+  }
+
+  clickShowHeroTableButton() {
+    super.clickTheElement(this.showHeroTableButton, 'Show Heroes Table button');
+    return this;
+  }
+
+  isHeroTableDataElementDisplayed(name) {
+    return this.heroTableData(name).isDisplayed();
   }
 
   clickViewDetailsButton() {

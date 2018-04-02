@@ -37,6 +37,15 @@ describe('Heroes functionality test suite', () => {
     heroContext.viewHeroDetails(hero).verifyCorrectHeroDetailsAreDisplayed(hero);
   });
 
+  it('Can edit Hero information', () => {
+    let hero = new Hero().withRandomName();
+    let heroContext = new HeroContext().withNewHero(hero);
+    heroContext.openHeroesList().createHeroes();
+    heroContext.viewHeroDetails(hero)
+      .editHeroName(hero.withRandomName().getName())
+      .verifyHeroNameIsCorrectThroughoutThePage(hero.getName());
+  });
+
   it('Can delete Hero from the list', () => {
     let heroContext = new HeroContext().openHeroesList();
     heroContext.deleteRandomHeroAndVerifyItIsDeleted();
