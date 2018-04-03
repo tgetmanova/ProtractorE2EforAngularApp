@@ -11,7 +11,7 @@ The purpose of this fork is to create demo Protractor based e2e tests:  `e2e` di
 
 ## Protractor configuration  
 Node interpreter + Protractor executable file (from node_modules)  
-Pass `protractor.conf.js` file as the first parameter; also `--specs=specs/HeroSpecs.js` parameter can be used to run certain spec file  
+Pass `protractor.conf.js` file as the first parameter; also `--specs=e2e/specs/HeroSpecs.js` parameter can be used to run certain spec file  
 
 ## Generate HTML Allure Report
 Test results XML files with screenshots are saved into result directory set in `protractor.conf.js` file.  
