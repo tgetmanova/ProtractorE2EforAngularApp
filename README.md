@@ -2,10 +2,16 @@
 **Important!!!** This is a fork from demo Angular application  
 The purpose of this fork is to create demo Protractor based e2e tests:  `e2e` directory (original TS draft is kept for now)
 - ***pages*** directory contains page objects;  
-- ***steps*** directory contains level of pages' interaction abstraction;
-- ***specs*** directory contains test scripts.  
+- ***context*** directory contains level of pages' interaction abstraction;
+- ***specs*** directory contains test scripts;  
+- ***data*** : custom objects;  
+- ***utils***: utils functions
 
 # Run e2e tests
+
+## Protractor configuration  
+Node interpreter + Protractor executable file (from node_modules)  
+Pass `protractor.conf.js` file as the first parameter; also `--specs=specs/HeroSpecs.js` parameter can be used to run certain spec file  
 
 ## Generate HTML Allure Report
 Test results XML files with screenshots are saved into result directory set in `protractor.conf.js` file.  
